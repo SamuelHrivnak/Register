@@ -1,5 +1,8 @@
 package register;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * register.Person.
  */
@@ -77,13 +80,13 @@ public class Person {
 	 *         otherwise
 	 */
 	private boolean isValidPhoneNumber(String phoneNumber) {
-		// if (phoneNumber.length() != 10)
-		// return false;
-		for (int i = 0; i < phoneNumber.length(); i++) {
-			if (!Character.isDigit(phoneNumber.charAt(i)))
-				return false;
+		String pattern = "[\\d]{10}";
+		Pattern pattern2 = Pattern.compile(pattern);
+		Matcher matcher = pattern2.matcher(phoneNumber);
+		if (matcher.matches()) {
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	/**
@@ -92,6 +95,6 @@ public class Person {
 	 * @return string representation of the person.
 	 */
 	public String toString() {
-		return name + " (" + phoneNumber + ")";
+		return name + ", " + phoneNumber + ".";
 	}
 }

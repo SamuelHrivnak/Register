@@ -122,32 +122,29 @@ public class ConsoleUI {
 	}
 
 	private void findInRegister() {
-		switch(showFindOptions()) {
-		case FIND_BY_NAME:
+		System.out.println("Find person by 1) NAME, 2)TEL.NUMBER \n Type number of choice");
+		String choice = readLine();	
+		
+		if (choice.equals("1")) {
 			System.out.print("Name: ");
-			System.out.println(register.findPersonByName(readLine()));
-			break;
-		case FIND_BY_NUMBER:
-			System.out.print("Phone number: ");
-			System.out.println(register.findPersonByPhoneNumber(readLine()));
-			break;
+			String name = readLine();	
+			if (register.findPersonByName(name) !=null) {
+				System.out.println("Persons telephone number with this name is: " + register.findPersonByName(name).getPhoneNumber());
+			}else {
+				System.out.println("Person with that name is not in our database");
+			}
+			
 		}
-	}
-
-	private FindOption showFindOptions() {
-		System.out.println("Find by:");
-		for (FindOption option : FindOption.values()) {
-			System.out.printf("%d. %s%n", option.ordinal() + 1, option);
-		}
-		System.out.println("-----------------------------------------------");
-
-		int selection = -1;
-		do {
-			System.out.println("Option: ");
-			selection = Integer.parseInt(readLine());
-		} while (selection <= 0 || selection > FindOption.values().length);
-
-		return FindOption.values()[selection - 1];
+		if (choice.equals("2")) {
+			System.out.print("Telephone ");
+			String telephone = readLine();	
+			if (register.findPersonByPhoneNumber(telephone) !=null) {
+				System.out.println("Persons name with this telephone number is: " + register.findPersonByPhoneNumber(telephone).getName());
+			}else {
+				System.out.println("Person with that name is not in our database");
+			}
+			
+		}		
 	}
 	
 	private void removeFromRegister() {
