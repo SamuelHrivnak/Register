@@ -20,7 +20,11 @@ public class Person {
 	 */
 	public Person(String name, String phoneNumber) {
 		this.name = name;
-		this.setPhoneNumber(phoneNumber);
+		try {
+			this.setPhoneNumber(phoneNumber);
+		} catch (PhoneNumberFormatException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 	/**
@@ -57,9 +61,9 @@ public class Person {
 	 * @param phoneNumberNew
 	 *            phone number of this person
 	 */
-	public void setPhoneNumber(String phoneNumberNew) {
+	public void setPhoneNumber(String phoneNumberNew) throws PhoneNumberFormatException {
 		if (!isValidPhoneNumber(phoneNumberNew)) {
-			throw new RuntimeException("Phone number is not valid");
+			throw new PhoneNumberFormatException("Wrong Number!");
 		}
 		phoneNumber = phoneNumberNew;
 	}
@@ -73,10 +77,11 @@ public class Person {
 	 *         otherwise
 	 */
 	private boolean isValidPhoneNumber(String phoneNumber) {
-//		if (phoneNumber.length() != 10)
-//			return false;
+		// if (phoneNumber.length() != 10)
+		// return false;
 		for (int i = 0; i < phoneNumber.length(); i++) {
-			if (!Character.isDigit(phoneNumber.charAt(i))) return false;
+			if (!Character.isDigit(phoneNumber.charAt(i)))
+				return false;
 		}
 		return true;
 	}

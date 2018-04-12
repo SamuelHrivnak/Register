@@ -111,7 +111,11 @@ public class ConsoleUI {
 		
 		System.out.print("New phone number: ");
 		String phoneNumber = readLine();
-		person.setPhoneNumber(phoneNumber);
+		try {
+			person.setPhoneNumber(phoneNumber);
+		} catch (PhoneNumberFormatException e) {
+			System.err.println(e.getMessage());
+		}
 		
 		System.out.println(index + ". " + person.toString());
 		
